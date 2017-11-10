@@ -5,6 +5,7 @@
  * Disciplinas: Projeto e Análise de Algoritmos
  * Prof Alexandre Gonçalves da Silva 
  * Baseado nos slides 33 da aula do dia 22/09/2017  
+ * Página 157 Cormen 3a Ed
  *
  * Problema de Seleção
  * Dado um conjunto A de n números inteiro e um inteiro i, 
@@ -107,7 +108,7 @@ public class Principal {
         //Como em java vetor inicia em 0 retire a soma de + 1
         //int k = p - q + 1
         int k = q - p;                                  //Theta(n)
-        if (i==k){ //Pivô é o i-ésimo menor!            //Theta(n)
+        if (i==k){ //O valor do pivô é a resposta       //Theta(n)
             return A[q];                                //O(1)   
         } else {                                
             if (i < k){                                 //O(1)   
