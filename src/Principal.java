@@ -4,7 +4,9 @@
  * Programa de Pós-Graduação em Ciências da Computação - PROPG
  * Disciplinas: Projeto e Análise de Algoritmos
  * Prof Alexandre Gonçalves da Silva 
+ *
  * Baseado nos slides 33 da aula do dia 22/09/2017  
+ *
  * Página 157 Cormen 3a Ed
  *
  * Problema de Seleção
@@ -17,6 +19,12 @@
  *   Se i = k, então o pivô A[k] é o i-ésimo menor! Achei!!
  *   Se i < k, então o i-ésimo menor está em A[1...k − 1];
  *   Se i > k, então o i-ésimo menor estáa em A[k+1...n].
+ *
+ * Atenção:
+ * Vetor em java inicia em 0, os algoritmos consideram início em 1.
+ * A subtraçào de -1 ocorre somente no local de acesso ao vetor ou matriz 
+ * para manter a compatibilidade entre os algoritmos.
+ *
  */
 
 /**
@@ -40,9 +48,9 @@ public class Principal {
      * @param j Segunda posição de troca
      */
     public static void troca(int[] A, int i, int j) {
-        int aux = A[i];
-        A[i] = A[j];
-        A[j] = aux;
+        int aux = A[i-1];
+        A[i-1] = A[j-1];
+        A[j-1] = aux;
     }
 
      /**
@@ -58,10 +66,10 @@ public class Principal {
      */
     public static int particione(int A[], int p, int r) {
         //x é o "pivô"
-        int x = A[r];                       //Theta(1)
+        int x = A[r-1];                       //Theta(1)
         int i = p - 1;                      //Theta(1)
         for (int j = p; j <= r - 1; j++) {  //Theta(n)
-            if (A[j] <= x) {                //Theta(n)
+            if (A[j-1] <= x) {                //Theta(n)
                 i = i + 1;                  //O(n)
                 troca(A, i, j);             //O(n)
             }
@@ -102,14 +110,12 @@ public class Principal {
      */
     public static int selectAleatorio(int A[], int p, int r, int i) {
         if (p==r) {                                      //Theta(1)
-            return A[p];                                //O(1)
+            return A[p-1];                                //O(1)
         }   
         int q = particioneAleatorio(A, p, r);           //Theta(n)
-        //Como em java vetor inicia em 0 retire a soma de + 1
-        //int k = p - q + 1
-        int k = q - p;                                  //Theta(n)
+        int k = q - p + 1;                              //Theta(n)
         if (i==k){ //O valor do pivô é a resposta       //Theta(n)
-            return A[q];                                //O(1)   
+            return A[q-1];                                //O(1)   
         } else {                                
             if (i < k){                                 //O(1)   
                 return selectAleatorio(A, p, q-1, i);   //T(k-1)  
@@ -122,13 +128,14 @@ public class Principal {
     public static void main(String[] args) {
         //Vetor dos dados    
         int A[] = {50, 70, 60, 90, 10, 30, 20, 40};
-
+                
         //Quantidade de elementos
-        int r = A.length-1;
+        int r = A.length;
 
         //Posição do i-ésimo termo
-        int i = 0;
-        int menor = selectAleatorio(A, 0, r, i);
+        int i = 1; //Primeiro termo, o menor
+        //int i = r; //Último termo, o maior
+        int menor = selectAleatorio(A, 1, r, i);
         
         System.out.println("Menor:" + menor);        
     }
