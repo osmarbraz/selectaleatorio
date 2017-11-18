@@ -144,6 +144,5 @@ public class Principal {
         int menor = selectAleatorio(A, 1, r, i);
         
         System.out.println("Menor:" + menor);        
-    }
-    
+    }    
 }
