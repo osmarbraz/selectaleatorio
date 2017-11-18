@@ -5,6 +5,8 @@
  * Disciplinas: Projeto e Análise de Algoritmos
  * Prof Alexandre Gonçalves da Silva 
  *
+ * Algoritmo Seleção Aleatória/Randomized Select
+ *
  * Baseado nos slides 33 da aula do dia 22/09/2017  
  *
  * Página 157 Cormen 3a Ed
@@ -33,8 +35,8 @@
 public class Principal {
         
      /**
-     * Seleciona um numero aleatorio no intervalo de inicio a fim
-     * @param inicio Inicio do intervalodo número aleatório
+     * Seleciona um número aleatório no intervalo de inicio a fim
+     * @param inicio Início do intervalo do número aleatório
      * @param fim Fim do intervalo do número aleatório
      */
     public static int aleatorio(int inicio, int fim) {
@@ -43,7 +45,7 @@ public class Principal {
     
     /**
      * Realiza a troca de posição de dois elementos do vetor.
-     * @param A Vetor que contem os dados
+     * @param A Vetor que contém os dados
      * @param i Primeira posição de troca
      * @param j Segunda posição de troca
      */
@@ -54,37 +56,37 @@ public class Principal {
     }
 
      /**
-     * Particione encontra o pivo.
+     * Particione encontra o pivô.
+     * 
      * Complexidade de tempo Theta(n).
      * T(n) = Theta(2n + 4) + O(2n) = Theta(n) 
-     * Slide 68.     
      * 
      * @param A Vetor com os dados
      * @param p Início do vetor
      * @param r Fim do vetor
-     * @return o pivo da troca
+     * @return o pivô da troca
      */
     public static int particione(int A[], int p, int r) {
         //x é o "pivô"
-        int x = A[r-1];                       //Theta(1)
-        int i = p - 1;                      //Theta(1)
-        for (int j = p; j <= r - 1; j++) {  //Theta(n)
-            if (A[j-1] <= x) {                //Theta(n)
-                i = i + 1;                  //O(n)
-                troca(A, i, j);             //O(n)
+        int x = A[r-1];                         //Theta(1)
+        int i = p - 1;                          //Theta(1)
+        for (int j = p; j <= r - 1; j++) {      //Theta(n)
+            if (A[j-1] <= x) {                  //Theta(n)
+                i = i + 1;                      //O(n)
+                troca(A, i, j);                 //O(n)
             }
         }
-        troca(A, i + 1, r);                 //Theta(1)
-        return i + 1;                       //Theta(1)
+        troca(A, i + 1, r);                     //Theta(1)
+        return i + 1;                           //Theta(1)
     }
     
     /**
      * Particione aleatório encontra o pivo de forma aleatória.
-     * Slide 91.     
+     * 
      * @param A Vetor com os dados
      * @param p Início do vetor
      * @param r Fim do vetor
-     * @return o pivo da troca
+     * @return o pivô da troca
      */
     public static int particioneAleatorio(int A[], int p, int r) {
         //i é o "pivô"
@@ -95,6 +97,7 @@ public class Principal {
         
     /**
      * Recebe um vetor A[1...n] e devolve o valor do i-ésimo menor elemento de A.
+     * 
      * A complexidade de tempo no pior caso 
      * n = r - p + 1    
      * T(n) = max{T(k-1), T(n-k)} + Theta(n)
@@ -109,28 +112,31 @@ public class Principal {
      * @return Um valor do elemento da posição i do vetor
      */
     public static int selectAleatorio(int A[], int p, int r, int i) {
-        if (p==r) {                                      //Theta(1)
-            return A[p-1];                                //O(1)
+        if (p==r) {                                         //Theta(1)
+            return A[p-1];                                  //O(1)
         }   
-        int q = particioneAleatorio(A, p, r);           //Theta(n)
-        int k = q - p + 1;                              //Theta(n)
-        if (i==k){ //O valor do pivô é a resposta       //Theta(n)
-            return A[q-1];                                //O(1)   
+        int q = particioneAleatorio(A, p, r);               //Theta(n)
+        int k = q - p + 1;                                  //Theta(n)
+        if (i==k){ //O valor do pivô é a resposta           //Theta(n)
+            return A[q-1];                                  //O(1)   
         } else {                                
-            if (i < k){                                 //O(1)   
-                return selectAleatorio(A, p, q-1, i);   //T(k-1)  
+            if (i < k){                                     //O(1)   
+                return selectAleatorio(A, p, q-1, i);       //T(k-1)  
             } else {
-                return selectAleatorio(A, q+1, r, i-k); //T(n-k)
+                return selectAleatorio(A, q+1, r, i-k);     //T(n-k)
             }
         }        
     }
 
     public static void main(String[] args) {
+        
         //Vetor dos dados    
         int A[] = {50, 70, 60, 90, 10, 30, 20, 40};
                 
         //Quantidade de elementos
         int r = A.length;
+        
+        System.out.println(">>> Algoritmo Seleção Aleatória/Randomized Select <<<");
 
         //Posição do i-ésimo termo
         int i = 1; //Primeiro termo, o menor
